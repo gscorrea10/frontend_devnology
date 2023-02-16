@@ -1,0 +1,36 @@
+name: frontend_devnology
+env:
+  - NODE_ENV=production
+  - PORT=8080
+build:
+  frontend:
+    dockerfile: Dockerfile
+    context: .
+    output: /app/dist
+web:
+  image: railwayapp/start-web:node14
+  env:
+    - NODE_ENV=${RAILWAY_ENV}
+    - PORT=${RAILWAY_PORT}
+  http:
+    port: ${RAILWAY_PORT}
+  mount:
+    - type: volume
+      source: frontend-dist
+      target: /app/dist
+    - type: volume
+      source: node-modules
+      target: /app/node_modules
+  command: npm start
+  dependencies:
+    - backend
+  routes:
+    - path: /
+      command: sh -c "cd /app/dist && npx http-server -p $RAILWAY_PORT"
+      port: ${RAILWAY_PORT}
+volumes:
+  frontend-dist:
+    driver: local
+  node-modules:
+    driver: local
+    mount_path: /app/node_modules

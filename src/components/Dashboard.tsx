@@ -35,6 +35,7 @@ const Dashboard: React.FC<Props> = () => {
     try {
       const response = await axios.get(apiUrl);
       console.log(response.data);
+      console.log(showEditForm);
       setArticles(response.data);
       setLoading(false);
     } catch (error) {

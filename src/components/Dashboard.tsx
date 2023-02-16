@@ -29,6 +29,7 @@ const Dashboard: React.FC<Props> = () => {
       fetchArticles();
     }, 5000);
     return () => clearInterval(intervalId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchArticles = async () => {

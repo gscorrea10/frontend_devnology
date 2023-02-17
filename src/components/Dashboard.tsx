@@ -55,7 +55,6 @@ const Dashboard: React.FC<Props> = () => {
 
   async function handleUpdateArticle(updateArticle: IArticleDTO) {
     setSelectedArticle(updateArticle);
-    setFormData(updateArticle);
     setShowEditForm(true);
     try {
       await axios.put(`http://localhost:8080/article/update/${updateArticle.id}`, formData);
